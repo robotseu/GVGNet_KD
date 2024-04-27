@@ -1,0 +1,38 @@
+env:
+  deterministic: True
+
+train:
+  output_dir: "./output"
+  batch_size: 8
+  num_workers: 2
+  epochs: 40
+  warmup_epochs: 3
+  base_lr: 0.001
+  warmup_lr: 0.0001
+  min_lr: 0.0001
+  scheduler:
+    name: "cosine"
+    decay_epochs: [50,55,60]
+    lr_decay_rate: 0.2
+  clip_grad_norm: 0.15
+  log_period: 100
+  save_period: 40
+
+optim:
+  lr: 0.001
+  eps: 1e-9
+  betas: [0.9,0.98]
+
+dataset:
+  anns_path:
+    train: './anns/train.txt'
+    test: './anns/test.txt'
+  img_path: "./images"
+  mask_path: "./masks"
+  input_shape: [416,416]
+  input_gaze_shape: 224
+  output_gaze_shape: 64
+
+model:
+  clip_model_path: "./weights/RN50.pt"
+  gaze_model_path: "./weights/model_teacher.pt"
